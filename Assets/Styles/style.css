@@ -35,3 +35,7 @@ body {
   display: inline-block;
   font-size: 1.5rem;
 }
+
+.is-done {
+  margin-right: 0.5rem;
+}
