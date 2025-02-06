@@ -9,6 +9,8 @@ addTask.addEventListener("click", () => {
   const newTask = createTask(taskName.value, taskDescript.value);
   currTasks.appendChild(newTask);
   addTodo(newTask);
+  taskName.value = "";
+  taskDescript.value = "";
 })
 
 const createElement = (itemType, itemClass, itemTxt = null) => {
@@ -36,16 +38,17 @@ const createTask = (name, val) => {
   taskDescript.appendChild(headerLiEle);
   taskDescript.appendChild(paragraphEle);
   
-  const iconDiv = createElement("div", "icon-div");
+  const iconDiv = createElement("div", "icon-div d-flex");
   const editIcon = createElement("i", "bi bi-pencil");
   
   editIcon.addEventListener('click', e => {
     const taskTitle = document.getElementById(`title-${currIdx}`);
     const taskDescript = document.getElementById(`descript-${currIdx}`)
     taskTitle.setAttribute("contenteditable", true);
-    taskTitle.style.padding = '10px';
+    taskTitle.style.padding = '0.2rem 1rem';
+
     taskDescript.setAttribute("contenteditable", true);
-    taskDescript.style.padding = '10px';
+    taskDescript.style.padding = '0.2rem 1rem';
     if(e.target.classList.contains('bi-pencil')) {
       e.target.classList.remove('bi-pencil');
       e.target.classList.add('bi-save');
@@ -61,6 +64,8 @@ const createTask = (name, val) => {
       e.target.addEventListener('click', ()=>{
         taskTitle.setAttribute("contenteditable", true);
         taskDescript.setAttribute("contentEditable", true);
+        taskTitle.style.padding = '0.2rem 1rem';
+        taskDescript.style.padding = '0.2rem 1rem';
       })
     }
   });
