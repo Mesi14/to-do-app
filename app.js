@@ -3,14 +3,18 @@ const taskDescript = document.getElementById("task-descript");
 const addTask = document.getElementById("button-addon2");
 const myTasks = document.getElementById("tasks");
 const currTasks = document.getElementById("task-list");
-let todos = [];
+const todos = [];
 
 addTask.addEventListener("click", () => {
-  const newTask = createTask(taskName.value, taskDescript.value);
-  currTasks.appendChild(newTask);
-  addTodo(newTask);
-  taskName.value = "";
-  taskDescript.value = "";
+  if(taskName.value === "") {
+    alert("Title can't be blank!")
+  } else {
+    const newTask = createTask(taskName.value, taskDescript.value);
+    currTasks.appendChild(newTask);
+    addTodo(newTask);
+    taskName.value = "";
+    taskDescript.value = "";
+  }
 })
 
 const createElement = (itemType, itemClass, itemTxt = null) => {
@@ -23,13 +27,13 @@ const createElement = (itemType, itemClass, itemTxt = null) => {
 const createTask = (name, val) => {
   const liItem = createElement("li", "list-item d-flex flex-row");
   let currIdx = todos.length+1;
-  liItem.setAttribute("id", currIdx);
+  liItem.id = currIdx;
   const taskDescript = createElement("div", "task-description");
   const chckbox = createElement("input", "is-done");
-  chckbox.setAttribute("type", "checkbox");
+  chckbox.type = "checkbox";
   const headerLiEle = createElement("h6", "header-ele");
-  headerLiEle.setAttribute("id", `title-${currIdx}`)
-  headerLiEle.setAttribute("contenteditable",  false);
+  headerLiEle.id = `title-${currIdx}`;
+  headerLiEle.contenteditable = false;
   const paragraphEle = createElement("p", "paragraphEle");
   paragraphEle.setAttribute("id", `descript-${currIdx}`)
   headerLiEle.innerHTML = name;
@@ -37,17 +41,25 @@ const createTask = (name, val) => {
   taskDescript.appendChild(chckbox);
   taskDescript.appendChild(headerLiEle);
   taskDescript.appendChild(paragraphEle);
-  
   const iconDiv = createElement("div", "icon-div d-flex");
+  const editBtn = createEditIcon(currIdx);
+  const deleteBtn = createDeleteIcon();
+  iconDiv.appendChild(editBtn);
+  iconDiv.appendChild(deleteBtn);
+  liItem.appendChild(taskDescript);
+  liItem.appendChild(iconDiv);
+  return liItem;
+}
+
+const createEditIcon = (currIdx) => {
   const editIcon = createElement("i", "bi bi-pencil");
-  
   editIcon.addEventListener('click', e => {
     const taskTitle = document.getElementById(`title-${currIdx}`);
     const taskDescript = document.getElementById(`descript-${currIdx}`)
-    taskTitle.setAttribute("contenteditable", true);
+    taskTitle.contenteditable = true;
     taskTitle.style.padding = '0.2rem 1rem';
 
-    taskDescript.setAttribute("contenteditable", true);
+    taskDescript.contenteditable = true;
     taskDescript.style.padding = '0.2rem 1rem';
     if(e.target.classList.contains('bi-pencil')) {
       e.target.classList.remove('bi-pencil');
@@ -69,18 +81,17 @@ const createTask = (name, val) => {
       })
     }
   });
+  return editIcon;
+}
 
+const createDeleteIcon = () => {
   const deleteIcon = createElement("i", "bi bi-trash");
   deleteIcon.addEventListener('click', e => {
     e.target.parentNode.parentNode.remove();
   });
-  iconDiv.appendChild(editIcon);
-  iconDiv.appendChild(deleteIcon);
-
-  liItem.appendChild(taskDescript);
-  liItem.appendChild(iconDiv);
-  return liItem;
+  return deleteIcon;
 }
+
 
 const addTodo = (currTask) => {
   todos.push(currTask)
