@@ -56,30 +56,7 @@ const createEditIcon = (currIdx) => {
   editIcon.addEventListener('click', e => {
     const taskTitle = document.getElementById(`title-${currIdx}`);
     const taskDescript = document.getElementById(`descript-${currIdx}`)
-    taskTitle.contenteditable = true;
-    taskTitle.style.padding = '0.2rem 1rem';
-
-    taskDescript.contenteditable = true;
-    taskDescript.style.padding = '0.2rem 1rem';
-    if(e.target.classList.contains('bi-pencil')) {
-      e.target.classList.remove('bi-pencil');
-      e.target.classList.add('bi-save');
-      e.target.addEventListener('click', ()=>{
-        taskTitle.setAttribute("contenteditable", false);
-        taskDescript.setAttribute("contentEditable", false);
-        taskTitle.style.padding = '0';
-        taskDescript.style.padding = '0';
-      })
-    } else {
-      e.target.classList.remove('bi-save');
-      e.target.classList.add('bi-pencil');
-      e.target.addEventListener('click', ()=>{
-        taskTitle.setAttribute("contenteditable", true);
-        taskDescript.setAttribute("contentEditable", true);
-        taskTitle.style.padding = '0.2rem 1rem';
-        taskDescript.style.padding = '0.2rem 1rem';
-      })
-    }
+    toggleEditMode(e.target, taskTitle, taskDescript);
   });
   return editIcon;
 }
@@ -92,6 +69,15 @@ const createDeleteIcon = () => {
   return deleteIcon;
 }
 
+const toggleEditMode = (icon, title, desc) => {
+  const needsChange = icon.classList.contains("bi-pencil");
+  title.contentEditable = needsChange;
+  desc.contentEditable = needsChange;
+  title.style.padding = needsChange ? "0.2rem 1rem" : "0";
+  desc.style.padding = needsChange ? "0.2rem 1rem" : "0";
+  icon.classList.toggle("bi-pencil");
+  icon.classList.toggle("bi-save");
+};
 
 const addTodo = (currTask) => {
   todos.push(currTask)
