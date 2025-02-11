@@ -1,0 +1,76 @@
+html {
+  font-size: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(190deg, #1F3A61, #A1E8C8);
+}
+
+.main-section {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.card {
+  margin: 25rem auto;
+  width: 60%;
+}
+
+.card-header {
+  background-color: #0e2841;
+  color: #ffffff;
+}
+
+.tasks {
+  padding: 1.5rem;
+}
+
+.list-item {
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0.5rem;
+  background-color: rgb(226, 255, 225);
+}
+
+.task-description {
+  padding-top: 1.2rem;
+}
+
+.task-description > h6 {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.is-done {
+  margin-right: 0.5rem;
+}
+
+.bi-pencil, .bi-save, .bi-trash {
+  font-size: 2rem;
+  margin: 0 0.2rem;
+  padding: 0.2rem 1rem;
+  color: #fff;
+  border-radius: 0.5rem;
+}
+
+.bi-pencil {
+  background-color: #0e2841;
+}
+
+.bi-trash {
+  background-color: #c00606;
+}
+
+.bi-save {
+  background-color: #157347;
+}
